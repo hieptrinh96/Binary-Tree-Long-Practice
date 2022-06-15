@@ -22,25 +22,55 @@ function findMaxBST (rootNode) {
 }
 
 function findMinBT (rootNode) {
+  let lowest = Infinity;
   const queue = [rootNode];
   while (queue.length) {
     let currentNode = queue.shift();
-    console.log(currentNode.val)
+    if (lowest > currentNode.val) {lowest = currentNode.val}
+    //console.log(currentNode.val)
     if (currentNode.left) queue.push(currentNode.left);
     if (currentNode.right) queue.push(currentNode.right)
   }
-  console.log(queue)
+return lowest;
 }
-  
+
 
 
 function findMaxBT (rootNode) {
-  // Your code here
+  let highest = -Infinity;
+  const queue = [rootNode];
+  while (queue.length) {
+    let currentNode = queue.shift();
+    if (highest < currentNode.val) {highest = currentNode.val}
+    // console.log(currentNode.val)
+    if (currentNode.left) queue.push(currentNode.left);
+    if (currentNode.right) queue.push(currentNode.right)
+  }
+return highest;
 }
 
+
 function getHeight (rootNode) {
-  // Your code here
+//set count variable
+let count = 0;
+let duplicates = new Set();
+//traverse through tree using depth method
+  const stack = [rootNode];
+  while (stack.length) {
+      let currentNode = stack.pop();
+      // if (duplicates.has(currentNode.val)) return
+      duplicates.add(currentNode.val);
+      count ++;
+      if (currentNode.left) stack.push(currentNode.left);
+      if (currentNode.right) stack.push(currentNode.right);
+  }
+  console.log(count-1);
+  return count - 1
 }
+
+//count ++ as we go through tree
+//return count
+
 
 function countNodes (rootNode) {
   // Your code here
