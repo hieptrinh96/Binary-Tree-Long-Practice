@@ -53,35 +53,79 @@ return highest;
 function getHeight (rootNode) {
 //set count variable
 let count = 0;
-let duplicates = new Set();
-//traverse through tree using depth method
-  const stack = [rootNode];
-  while (stack.length) {
-      let currentNode = stack.pop();
-      // if (duplicates.has(currentNode.val)) return
-      duplicates.add(currentNode.val);
-      count ++;
-      if (currentNode.left) stack.push(currentNode.left);
-      if (currentNode.right) stack.push(currentNode.right);
+const stack = [rootNode];
+while (stack.length) {
+    count++
+    let currentNode = stack.pop();
+    if (!currentNode.right) return count - 1;
+    if (currentNode.left) {
+      stack.push(currentNode.left);
+    }
+    if (currentNode.right) {
+      stack.push(currentNode.right);
+    }
   }
-  console.log(count-1);
-  return count - 1
 }
 
-//count ++ as we go through tree
-//return count
-
-
 function countNodes (rootNode) {
-  // Your code here
+  let count = 0;
+  const stack = [rootNode];
+  while (stack.length) {
+    count++
+    let currentNode = stack.pop();
+    // duplicates.add(currentNode.val);
+    if (currentNode.left) {
+      stack.push(currentNode.left);
+    }
+    if (currentNode.right) {
+      stack.push(currentNode.right);
+    }
+  }
+  return count;
 }
 
 function balancedTree (rootNode) {
-  // Your code here
+  let count = 0;
+  let countLeft = 0;
+  let countRight = 0;
+  const stackLeft = [rootNode.left];
+  const stackRight = [rootNode.right];
+  const stack = [rootNode];
+  while (stackLeft.length) {
+    countLeft++;
+    let currentNode = stackLeft.pop();
+    // if (!currentNode.right) return;
+    if (currentNode.left) {
+      stackLeft.push(currentNode.left);
+    }
+    if (currentNode.right) {
+      stackRight.push(currentNode.right);
+    }
+  }
+    while (stackRight.length) {
+      countRight++;
+      let currentNode = stackRight.pop();
+      if (!currentNode.right) return Math.abs(countLeft - countRight) <= 1;
+      if (currentNode.left) {
+        stackRight.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        stackRight.push(currentNode.right);
+      }
+   }
+  //  console.log(countLeft, countRight)
+  //  return Math.abs(countLeft - countRight) <= 1;
 }
 
 function getParentNode (rootNode, target) {
-  // Your code here
+  const stack = [rootNode];
+  let prev = null;
+  while (stack.length) {
+    let currentNode = stack.shift();
+    console.log(currentNode.val);
+    if (currentNode.left) stack.push(currentNode.left);
+    if (currentNode.right) stack.push(currentNode.right);
+  }
 }
 
 function inOrderPredecessor (rootNode, target) {
